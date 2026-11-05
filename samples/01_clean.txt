@@ -1,0 +1,15 @@
+Subject: Order Confirmation PO-48213
+
+Hello,
+
+Thank you for your order. Please find the confirmed details below.
+
+Supplier: Northwind Fasteners Ltd.
+Item: M8 stainless hex bolts (SKU NF-M8-40)
+Quantity: 2,500 units
+Unit price: USD 0.42
+Delivery date: 15 March 2027
+Ship to: Acme Assembly, Dock 3
+
+Kind regards,
+Order Desk, Northwind Fasteners Ltd.

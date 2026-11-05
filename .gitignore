@@ -1,0 +1,28 @@
+# Secrets - the API key lives only in the ANTHROPIC_API_KEY env var
+.env
+.env.*
+*.key
+*.pem
+secrets.*
+
+# Python caches and build output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

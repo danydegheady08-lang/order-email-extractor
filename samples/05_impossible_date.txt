@@ -1,0 +1,15 @@
+Subject: Order Acknowledgement #A-5520
+
+Dear Customer,
+
+We acknowledge your order as follows:
+
+  Vendor ........... Halvorsen Pumps AS
+  Part ............. HP-220 centrifugal pump
+  Qty .............. 12
+  Price/unit ....... NOK 14,950.00
+  Requested delivery 30 February 2027
+
+Please contact us if any of the above is incorrect.
+
+Halvorsen Pumps AS - Customer Service
