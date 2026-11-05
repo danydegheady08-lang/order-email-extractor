@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Brightwater Labels Ltd",
+  "quantity": 40000,
+  "unit_price": null,
+  "currency": "USD",
+  "delivery_date": "2027-03-22",
+  "tags": [
+    "heldout",
+    "units",
+    "variant"
+  ],
+  "note": "VARIANT probe: 'per 1,000' is not one of the guard patterns; price per 1,000 -> unit_price null"
+}

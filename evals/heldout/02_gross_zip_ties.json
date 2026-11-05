@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Tarrant Fixings Inc.",
+  "quantity": null,
+  "unit_price": 0.09,
+  "currency": "USD",
+  "delivery_date": "2027-04-19",
+  "tags": [
+    "heldout",
+    "units"
+  ],
+  "note": "gross needs conversion -> qty null; price stated 'each'"
+}

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Penrose Print Ltd",
+  "quantity": 10000,
+  "unit_price": null,
+  "currency": "GBP",
+  "delivery_date": "2027-02-17",
+  "tags": [
+    "heldout",
+    "units"
+  ],
+  "note": "per thousand -> unit_price null"
+}

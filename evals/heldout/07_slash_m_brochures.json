@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Ashgrove Litho Inc.",
+  "quantity": 50000,
+  "unit_price": null,
+  "currency": "USD",
+  "delivery_date": "2027-03-02",
+  "tags": [
+    "heldout",
+    "units"
+  ],
+  "note": "/M = per thousand -> unit_price null"
+}

@@ -133,4 +133,43 @@ model's notes described the choice it made without sounding unsure. Failures by 
 quantity/price in dozens or gross taken as written (3 emails), price per 100 or per thousand
 silently converted to a per-unit price (2), a newest message contradicting a quoted
 older confirmation resolved in favour of the newest (1), and a partial confirmation
-("400 of 1000") taken as the order (1). The prompt and review rule have not been tuned for these yet.
+("400 of 1000") taken as the order (1). These numbers are from before the unit guard below.
+
+## Unit / partial-confirmation guard
+
+`extract_order.py` has a deterministic check that runs after validation and does not touch the
+model prompt. If the email text matches any of these (case-insensitive, except `/M`):
+`dozen`, `gross`, `Dutzend`, `per 100`, `per hundred`, `per thousand`, `/M`, `N of M`
+(a number, "of", a number) or `confirm N of`, then any `quantity` and `unit_price` the model returned
+is withheld and recorded as an issue with status `needs_review` and the reason
+"unit or partial ambiguity, needs human review". That puts the email on the review list.
+Tests: `tests/test_unit_guard.py`.
+
+Known costs: it withholds the value even when it was right (for example "a dozen of the 2m
+ladders" really is 12), and it fires on harmless text such as "EUR 100 gross incl. VAT" or
+"page 1 of 2". It does not catch wording outside the list: "600 of the 2000", "per 1,000",
+"we can only confirm 400 for ..." and a newest message contradicting a quoted older one all get
+through to the model alone.
+
+### Results (live, `claude-sonnet-5-5`, 2026-11-05)
+
+**The hard set was used to design this fix, so its after-score is optimistic. The held-out set
+(`evals/heldout/`), written afterwards and never used to adjust the guard, is the fairer number.**
+Both are small (30 and 13 emails) and a single run each; the model is not deterministic, so
+differences of one or two fields are noise.
+
+| Set | Guard | Fields correct | Emails with a wrong value accepted | Wrong values that were not on the review list |
+|---|---|---|---|---|
+| hard (30), design set | before | 139/150 (92.7%) | 7 | 7 |
+| hard (30), design set | after | 139/150 (92.7%) | 2 | 2 |
+| held-out (13) | off | 58/65 (89.2%) | 4 | 2 |
+| held-out (13) | on | 57/65 (87.7%) | 1 | 0 |
+
+Plain reading: the guard does not raise the accuracy number. It converts most confident wrong
+answers into withheld values that a human sees, at the cost of also withholding some correct ones
+(6 on the hard set, 6 on the held-out set). On the held-out set the 3 clean emails with none of
+the patterns were untouched and fully correct. Of the 10 held-out hard emails, the guard fired on 8;
+it missed "600 of the 2000" and "per 1,000", which the model happened to leave as `null` itself on
+this run. The one wrong value left after the guard was a delivery date on a partial confirmation,
+a field the guard does not cover; it was still on the review list because the guard flagged that
+email's quantity and price.

@@ -1,0 +1,14 @@
+{
+  "supplier_name": "Kugellager Lehmann GmbH",
+  "quantity": 250,
+  "unit_price": 3.75,
+  "currency": "EUR",
+  "delivery_date": "2027-05-24",
+  "tags": [
+    "heldout",
+    "clean",
+    "german",
+    "decimal_comma"
+  ],
+  "note": ""
+}

@@ -167,6 +167,43 @@ def validate(raw: dict[str, Any], today: date | None = None) -> Result:
     return result
 
 
+# ---------------------------------------------------------------- unit / partial guard
+
+# Deterministic, prompt-independent. If the email text contains a unit or partial-confirmation
+# pattern, quantity and unit_price are too easy to misread (5 dozen vs 60 units, per 100 vs per
+# piece, "400 of 1000" confirmed), so any value the model gave is withheld and flagged for a human.
+# Known cost: it also fires on harmless text ("gross price", "page 1 of 2") and withholds a
+# correct value; that is the price of not guessing. Patterns are case-insensitive except "/M".
+UNIT_GUARD_REASON = "unit or partial ambiguity, needs human review"
+UNIT_GUARD_FIELDS = ("quantity", "unit_price")
+UNIT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("dozen", re.compile(r"\bdozens?\b", re.IGNORECASE)),
+    ("gross", re.compile(r"\bgross\b", re.IGNORECASE)),
+    ("Dutzend", re.compile(r"\bdutzend\w*", re.IGNORECASE)),
+    ("per 100", re.compile(r"\bper\s+100\b", re.IGNORECASE)),
+    ("per hundred", re.compile(r"\bper\s+hundred\b", re.IGNORECASE)),
+    ("per thousand", re.compile(r"\bper\s+thousand\b", re.IGNORECASE)),
+    ("/M", re.compile(r"/M\b")),  # case-sensitive: "$38/M" = per thousand
+    ("N of M", re.compile(r"\b\d[\d.,]*\s+of\s+\d")),
+    ("confirm N of", re.compile(r"\bconfirm\w*\s+\d[\d.,]*\s+of\b", re.IGNORECASE)),
+)
+
+
+def unit_patterns_found(email_text: str) -> list[str]:
+    return [name for name, rx in UNIT_PATTERNS if rx.search(email_text)]
+
+
+def apply_unit_guard(email_text: str, result: Result) -> Result:
+    """Withhold and flag quantity/unit_price when the email has a unit or partial pattern."""
+    if not unit_patterns_found(email_text):
+        return result
+    for name in UNIT_GUARD_FIELDS:
+        if name in result.accepted:
+            del result.accepted[name]
+            result.issues.append({"field": name, "status": "needs_review", "reason": UNIT_GUARD_REASON})
+    return result
+
+
 # ---------------------------------------------------------------- model call
 
 
@@ -242,7 +279,7 @@ def extract(email_text: str, client: Any = None, today: date | None = None) -> R
         raise ExtractionError("email is empty")
     client = client or make_client()
     raw = parse_model_output(call_model(email_text, client))
-    return validate(raw, today=today)
+    return apply_unit_guard(email_text, validate(raw, today=today))
 
 
 # ---------------------------------------------------------------- CLI

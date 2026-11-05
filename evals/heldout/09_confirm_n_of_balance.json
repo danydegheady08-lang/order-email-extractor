@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Stanhope Valves Ltd",
+  "quantity": null,
+  "unit_price": 7.0,
+  "currency": "GBP",
+  "delivery_date": null,
+  "tags": [
+    "heldout",
+    "partial"
+  ],
+  "note": "partial confirmation (250 of the 400) -> qty and date null"
+}

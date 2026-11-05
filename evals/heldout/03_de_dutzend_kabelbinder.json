@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Kabeltechnik Osthoff GmbH",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-03-12",
+  "tags": [
+    "heldout",
+    "units",
+    "german"
+  ],
+  "note": "dozens in German -> qty and price null"
+}

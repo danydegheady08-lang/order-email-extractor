@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Rheintal Schrauben AG",
+  "quantity": 8000,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-03-08",
+  "tags": [
+    "heldout",
+    "units"
+  ],
+  "note": "price per 100 -> unit_price null"
+}

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Calloway Motors Ltd",
+  "quantity": null,
+  "unit_price": 1.8,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "heldout",
+    "partial"
+  ],
+  "note": "partial confirmation (600 of the 2000), rest TBD -> qty and date null"
+}

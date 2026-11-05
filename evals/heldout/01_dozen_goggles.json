@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Marlowe Safety Ltd",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "GBP",
+  "delivery_date": "2027-03-04",
+  "tags": [
+    "heldout",
+    "units"
+  ],
+  "note": "dozens: unit count and per-unit price ambiguous -> null"
+}
