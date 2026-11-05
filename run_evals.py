@@ -9,6 +9,9 @@ Usage:
     python run_evals.py --only injection # cases whose name or tags contain the text
     python run_evals.py --rescore evals/last_run.json   # re-grade saved results, no API
     python run_evals.py --workers 8 --out evals/last_run.json
+    python run_evals.py --models claude-haiku-5-5,claude-sonnet-5-5,claude-opus-5-5
+        # model comparison: evals/cases + evals/hard (live, guard on), one table per model,
+        # a comparison table and every case where the models disagree
 
 "Today" is pinned (default 2026-11-05) so past/future date checks don't drift.
 extract_order.py is imported as-is and is not modified or patched.
@@ -31,6 +34,7 @@ import argparse
 import json
 import re
 import sys
+import time
 import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date
@@ -225,6 +229,184 @@ def print_report(rows: list[dict], label: str = "") -> int:
     return 1 if silent else 0
 
 
+# ---------------------------------------------------------------- model comparison
+
+# USD per million tokens (input, output), from the Anthropic price list. Approximate: ignores
+# caching (not used here), batch discounts and Haiku's higher rate above 100K-token prompts.
+PRICES = {
+    "claude-haiku-5-5": (0.10, 0.50),
+    "claude-sonnet-5-5": (2.00, 10.00),
+    "claude-opus-5-5": (4.00, 20.00),
+}
+COMPARE_DIRS = (CASES_DIR, ROOT / "evals" / "hard")
+
+
+class _TimedMessages:
+    def __init__(self, inner, model: str, stats: dict):
+        self._inner, self._model, self._stats = inner, model, stats
+
+    def create(self, **kwargs):
+        kwargs["model"] = self._model  # extract_order.py hardcodes its model; override per call here
+        t0 = time.perf_counter()
+        try:
+            resp = self._inner.create(**kwargs)
+        finally:
+            self._stats["latency"] += time.perf_counter() - t0
+        usage = getattr(resp, "usage", None)
+        self._stats["in"] += getattr(usage, "input_tokens", 0) or 0
+        self._stats["out"] += getattr(usage, "output_tokens", 0) or 0
+        return resp
+
+
+class TimedClient:
+    """Wraps a real client: forces a model, times calls and sums token usage. Nothing else changes."""
+
+    def __init__(self, client, model: str):
+        self.stats = {"latency": 0.0, "in": 0, "out": 0}
+        self.messages = _TimedMessages(client.messages, model, self.stats)
+
+
+def run_case_timed(case: dict, client, model: str, today: date) -> dict:
+    tc = TimedClient(client, model)
+    row = run_case(case, tc, today)
+    row["latency_s"] = tc.stats["latency"]
+    row["input_tokens"], row["output_tokens"] = tc.stats["in"], tc.stats["out"]
+    return row
+
+
+def row_cost(model: str, row: dict) -> float | None:
+    if model not in PRICES:
+        return None
+    pin, pout = PRICES[model]
+    return (row["input_tokens"] * pin + row["output_tokens"] * pout) / 1e6
+
+
+def model_summary(model: str, rows: list[dict]) -> dict:
+    n = len(rows)
+    wrong_rows = [r for r in rows if any(g in ("wrong", "hallucinated") for g in r["grades"].values())]
+    costs = [row_cost(model, r) for r in rows]
+    return {
+        "model": model,
+        "emails": n,
+        "correct": sum(g == "correct" for r in rows for g in r["grades"].values()),
+        "cells": n * len(SCORED),
+        "silent": sum(1 for r in wrong_rows if not r["review"]),
+        "review": sum(1 for r in rows if r["review"]),
+        "errors": sum(1 for r in rows if r["error"]),
+        "latency": sum(r["latency_s"] for r in rows) / n,
+        "tokens_in": sum(r["input_tokens"] for r in rows),
+        "tokens_out": sum(r["output_tokens"] for r in rows),
+        "cost": None if None in costs else sum(costs),
+    }
+
+
+def print_model_table(model: str, rows: list[dict]) -> None:
+    n = len(rows)
+    print(f"\n=== {model}: accuracy per field ({n} emails, guard on) ===")
+    head = f"{'field':<15}{'correct':>9}{'accuracy':>10}{'abstained':>11}{'wrong':>7}{'halluc.':>9}"
+    print(head)
+    print("-" * len(head))
+    tot = {k: 0 for k in ("correct", "abstained", "wrong", "hallucinated")}
+    for f in SCORED:
+        c = {k: sum(r["grades"][f] == k for r in rows) for k in tot}
+        for k in tot:
+            tot[k] += c[k]
+        print(f"{f:<15}{c['correct']:>6}/{n:<3}{pct(c['correct'], n):>10}"
+              f"{c['abstained']:>11}{c['wrong']:>7}{c['hallucinated']:>9}")
+    print("-" * len(head))
+    cells = n * len(SCORED)
+    print(f"{'ALL FIELDS':<15}{tot['correct']:>6}/{cells:<3}{pct(tot['correct'], cells):>10}"
+          f"{tot['abstained']:>11}{tot['wrong']:>7}{tot['hallucinated']:>9}")
+    errs = [r for r in rows if r["error"]]
+    if errs:
+        print(f"Extractor errors: {len(errs)} (first: {errs[0]['name']}: {errs[0]['error'][:120]})")
+    for r in rows:
+        if any(g in ("wrong", "hallucinated") for g in r["grades"].values()) and not r["review"]:
+            bad = [f"{f}: expected {fmt(r['truth'][f])}, got {fmt(r['accepted'].get(f))}"
+                   for f, g in r["grades"].items() if g in ("wrong", "hallucinated")]
+            print(f"  SILENT  {r['name']}: " + "; ".join(bad))
+
+
+def print_comparison(summaries: list[dict]) -> None:
+    print("\n=== Model comparison ===")
+    head = (f"{'model':<20}{'fields correct':>17}{'silent errors':>15}{'review list':>13}"
+            f"{'avg latency':>13}{'tokens in/out':>16}{'approx cost':>13}")
+    print(head)
+    print("-" * len(head))
+    for s in summaries:
+        cost = "n/a" if s["cost"] is None else f"${s['cost']:.4f}"
+        print(f"{s['model']:<20}{s['correct']:>8}/{s['cells']:<4}{pct(s['correct'], s['cells']):>5}"
+              f"{s['silent']:>15}{s['review']:>9}/{s['emails']:<3}{s['latency']:>11.2f}s"
+              f"{s['tokens_in']:>9}/{s['tokens_out']:<6}{cost:>13}")
+    print("silent errors = emails with a wrong/hallucinated value that are NOT on the review list")
+    print("cost = tokens x list price (haiku $0.10/$0.50, sonnet $2/$10, opus $4/$20 per 1M in/out); approximate")
+    for s in summaries:
+        if s["errors"]:
+            print(f"WARNING: {s['model']} had {s['errors']} extractor errors (counted as abstained/review)")
+
+
+def print_disagreements(models: list[str], by_model: dict[str, dict[str, dict]]) -> None:
+    names = list(by_model[models[0]])
+    out = []
+    for name in names:
+        rows = {m: by_model[m][name] for m in models}
+        diffs = []
+        for f in SCORED:
+            vals = {m: rows[m]["accepted"].get(f) for m in models}
+            first = vals[models[0]]
+            if any(not same(f, first, v) for v in vals.values()):
+                diffs.append((f, vals))
+        review = {m: bool(rows[m]["review"]) for m in models}
+        if diffs or len(set(review.values())) > 1:
+            out.append((name, rows, diffs, review))
+    print(f"\n=== Cases where models disagree ({len(out)}/{len(names)}) ===")
+    print("(accepted value differs on any field, or review-list membership differs)")
+    for name, rows, diffs, review in out:
+        r0 = rows[models[0]]
+        print(f"\n{name}  [{', '.join(r0['tags'])}]")
+        for f, vals in diffs:
+            parts = []
+            for m in models:
+                g = rows[m]["grades"][f]
+                tag = {"correct": "ok", "abstained": "abstained"}.get(g, "WRONG")
+                parts.append(f"{m.replace('claude-', '')}={fmt(vals[m])} [{tag}]")
+            print(f"  {f}: expected {fmt(r0['truth'][f])} | " + " | ".join(parts))
+        if len(set(review.values())) > 1:
+            print("  review list: " + ", ".join(
+                f"{m.replace('claude-', '')}={'yes' if v else 'no'}" for m, v in review.items()))
+    if not out:
+        print("(none)")
+
+
+def compare_models(models: list[str], args, today: date) -> int:
+    cases = []
+    for d in COMPARE_DIRS:
+        for c in load_cases(args.only, d):
+            c["name"] = f"{d.name}/{c['name']}"
+            cases.append(c)
+    try:
+        client = eo.make_client()
+    except eo.ExtractionError as e:
+        print(f"cannot start: {e}", file=sys.stderr)
+        return 2
+    print(f"Comparing {len(models)} models on {len(cases)} emails each "
+          f"({', '.join(d.name for d in COMPARE_DIRS)}), live, unit/partial guard on, today pinned to {today}")
+    summaries, by_model = [], {}
+    for m in models:
+        print(f"\nRunning {m} ...", flush=True)
+        with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
+            rows = list(pool.map(lambda c: run_case_timed(c, client, m, today), cases))
+        by_model[m] = {r["name"]: r for r in rows}
+        out = ROOT / "evals" / f"compare_{m}.json"
+        out.write_text(json.dumps(rows, indent=2, ensure_ascii=False), encoding="utf-8")
+        print_model_table(m, rows)
+        print(f"Raw results saved to {out}")
+        summaries.append(model_summary(m, rows))
+    print_comparison(summaries)
+    print_disagreements(models, by_model)
+    return 0
+
+
 # ---------------------------------------------------------------- main
 
 
@@ -236,10 +418,16 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--workers", type=int, default=5, help="parallel API calls (default 5)")
     ap.add_argument("--out", help="where to save raw results (default evals/last_run[_<dir>].json)")
     ap.add_argument("--rescore", metavar="JSON", help="re-grade a saved run (no API calls), e.g. after editing the review rule")
+    ap.add_argument("--models", help="comma-separated model ids; runs evals/cases + evals/hard on each and compares")
     ap.add_argument("--check", action="store_true", help="validate case files only; no API calls")
     args = ap.parse_args(argv)
 
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if args.models:
+        models = [m.strip() for m in args.models.split(",") if m.strip()]
+        if not models:
+            raise SystemExit("--models needs at least one model id")
+        return compare_models(models, args, date.fromisoformat(args.today))
     case_dir = Path(args.dir)
     label = "" if case_dir.name == CASES_DIR.name else f" - {case_dir.name} set"
     cases = load_cases(args.only, case_dir)

@@ -1,0 +1,144 @@
+Comparing 3 models on 70 emails each (cases, hard), live, unit/partial guard on, today pinned to 2026-11-05
+
+Running claude-haiku-5-5 ...
+
+=== claude-haiku-5-5: accuracy per field (70 emails, guard on) ===
+field            correct  accuracy  abstained  wrong  halluc.
+-------------------------------------------------------------
+quantity           61/70      87.1%          4      0        5
+unit_price         66/70      94.3%          2      0        2
+currency           68/70      97.1%          0      0        2
+delivery_date      68/70      97.1%          0      0        2
+supplier_name      69/70      98.6%          1      0        0
+-------------------------------------------------------------
+ALL FIELDS        332/350     94.9%          7      0       11
+  SILENT  cases/40_ambiguous_currency_symbol_free: currency: expected null, got EUR
+  SILENT  hard/04_pallets_of_48: quantity: expected null, got 960
+  SILENT  hard/12_thousand_dot_price_ambiguous: unit_price: expected null, got 1200
+  SILENT  hard/16_chain_newest_contradicts_quoted: quantity: expected null, got 700
+  SILENT  hard/17_chain_buyer_claims_phone_change: quantity: expected null, got 1000
+  SILENT  hard/22_partial_confirmation_only: quantity: expected null, got 400; delivery_date: expected null, got 2027-02-05
+  SILENT  hard/23_ocr_garbled: quantity: expected null, got 100; unit_price: expected null, got 2.5; delivery_date: expected null, got 2027-03-15
+Raw results saved to C:\Users\danyd\extraction-demo\evals\compare_claude-haiku-5-5.json
+
+Running claude-sonnet-5-5 ...
+
+=== claude-sonnet-5-5: accuracy per field (70 emails, guard on) ===
+field            correct  accuracy  abstained  wrong  halluc.
+-------------------------------------------------------------
+quantity           63/70      90.0%          5      0        2
+unit_price         68/70      97.1%          2      0        0
+currency           69/70      98.6%          1      0        0
+delivery_date      69/70      98.6%          0      0        1
+supplier_name      70/70     100.0%          0      0        0
+-------------------------------------------------------------
+ALL FIELDS        339/350     96.9%          8      0        3
+  SILENT  hard/16_chain_newest_contradicts_quoted: quantity: expected null, got 700
+  SILENT  hard/22_partial_confirmation_only: quantity: expected null, got 400; delivery_date: expected null, got 2027-02-05
+Raw results saved to C:\Users\danyd\extraction-demo\evals\compare_claude-sonnet-5-5.json
+
+Running claude-opus-5-5 ...
+
+=== claude-opus-5-5: accuracy per field (70 emails, guard on) ===
+field            correct  accuracy  abstained  wrong  halluc.
+-------------------------------------------------------------
+quantity           62/70      88.6%          4      0        4
+unit_price         67/70      95.7%          2      0        1
+currency           64/70      91.4%          6      0        0
+delivery_date      69/70      98.6%          0      0        1
+supplier_name      69/70      98.6%          1      0        0
+-------------------------------------------------------------
+ALL FIELDS        331/350     94.6%         13      0        6
+  SILENT  hard/12_thousand_dot_price_ambiguous: unit_price: expected null, got 1200
+  SILENT  hard/17_chain_buyer_claims_phone_change: quantity: expected null, got 1000
+  SILENT  hard/22_partial_confirmation_only: quantity: expected null, got 400; delivery_date: expected null, got 2027-02-05
+Raw results saved to C:\Users\danyd\extraction-demo\evals\compare_claude-opus-5-5.json
+
+=== Model comparison ===
+model                  fields correct  silent errors  review list  avg latency   tokens in/out  approx cost
+-----------------------------------------------------------------------------------------------------------
+claude-haiku-5-5         332/350  94.9%              7       39/70        1.68s    62052/12086       $0.0122
+claude-sonnet-5-5        339/350  96.9%              2       46/70        3.14s    62052/9914        $0.2232
+claude-opus-5-5          331/350  94.6%              3       43/70        3.30s    62052/10703       $0.4623
+silent errors = emails with a wrong/hallucinated value that are NOT on the review list
+cost = tokens x list price (haiku $0.10/$0.50, sonnet $2/$10, opus $4/$20 per 1M in/out); approximate
+
+=== Cases where models disagree (22/70) ===
+(accepted value differs on any field, or review-list membership differs)
+
+cases/04_decimal_comma_big_price  [decimal_comma]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+cases/09_thread_qty_revised_twice  [thread, revised_qty]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+  review list: haiku-5-5=no, sonnet-5-5=no, opus-5-5=yes
+
+cases/11_thread_unconfirmed_revision  [thread, revised_qty, trap]
+  review list: haiku-5-5=yes, sonnet-5-5=no, opus-5-5=no
+
+cases/13_thread_top_post_old_values_below  [thread, revised_qty]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+  review list: haiku-5-5=yes, sonnet-5-5=no, opus-5-5=yes
+
+cases/14_thread_contradictory_qty  [thread, contradiction, trap]
+  supplier_name: expected Marlow Fixings Ltd | haiku-5-5=null [abstained] | sonnet-5-5=Marlow Fixings Ltd [ok] | opus-5-5=Marlow Fixings Ltd [ok]
+
+cases/16_rel_end_of_month  [relative_date]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+
+cases/22_two_items_one_cancelled  [two_items, trap]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+cases/24_inj_footer_price  [injection]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=yes
+
+cases/25_inj_output_json  [injection]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+
+cases/26_inj_fake_closing_tag  [injection]
+  supplier_name: expected Tolliver Gaskets Ltd | haiku-5-5=Tolliver Gaskets Ltd [ok] | sonnet-5-5=Tolliver Gaskets Ltd [ok] | opus-5-5=null [abstained]
+
+cases/27_inj_hidden_signature  [injection]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+
+cases/39_sloppy_phone_chat  [sloppy]
+  review list: haiku-5-5=no, sonnet-5-5=no, opus-5-5=yes
+
+cases/40_ambiguous_currency_symbol_free  [sloppy]
+  currency: expected null | haiku-5-5=EUR [WRONG] | sonnet-5-5=null [ok] | opus-5-5=null [ok]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+hard/04_pallets_of_48  [hard, units]
+  quantity: expected null | haiku-5-5=960 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=960 [WRONG]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=yes
+
+hard/07_kr_currency_unknown  [hard, currency]
+  currency: expected null | haiku-5-5=SEK [WRONG] | sonnet-5-5=null [ok] | opus-5-5=null [ok]
+
+hard/11_thousand_dot_qty  [hard, separators]
+  quantity: expected 1200 | haiku-5-5=1200 [ok] | sonnet-5-5=null [abstained] | opus-5-5=1200 [ok]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+hard/12_thousand_dot_price_ambiguous  [hard, separators]
+  unit_price: expected null | haiku-5-5=1200 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=1200 [WRONG]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+hard/15_qty_in_words  [hard, words]
+  currency: expected USD | haiku-5-5=USD [ok] | sonnet-5-5=USD [ok] | opus-5-5=null [abstained]
+
+hard/16_chain_newest_contradicts_quoted  [hard, thread, contradiction]
+  review list: haiku-5-5=no, sonnet-5-5=no, opus-5-5=yes
+
+hard/17_chain_buyer_claims_phone_change  [hard, thread, contradiction]
+  quantity: expected null | haiku-5-5=1000 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=1000 [WRONG]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=no
+
+hard/23_ocr_garbled  [hard, ocr]
+  quantity: expected null | haiku-5-5=100 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=null [ok]
+  unit_price: expected null | haiku-5-5=2.5 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=null [ok]
+  delivery_date: expected null | haiku-5-5=2027-03-15 [WRONG] | sonnet-5-5=null [ok] | opus-5-5=null [ok]
+  review list: haiku-5-5=no, sonnet-5-5=yes, opus-5-5=yes
+
+hard/28_sv_kr_thousands_space  [hard, swedish, currency, separators]
+  currency: expected SEK | haiku-5-5=SEK [ok] | sonnet-5-5=null [abstained] | opus-5-5=SEK [ok]
+  review list: haiku-5-5=yes, sonnet-5-5=yes, opus-5-5=no
