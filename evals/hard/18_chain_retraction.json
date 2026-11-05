@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Granger Valve Corp.",
+  "quantity": 450,
+  "unit_price": 9.9,
+  "currency": "USD",
+  "delivery_date": "2027-04-01",
+  "tags": [
+    "hard",
+    "thread",
+    "revised_qty"
+  ],
+  "note": ""
+}

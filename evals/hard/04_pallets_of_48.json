@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Vlaams Karton NV",
+  "quantity": null,
+  "unit_price": 0.8,
+  "currency": "EUR",
+  "delivery_date": "2027-03-09",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "quantity could be 20 (pallets) or 960 (cartons) -> null"
+}

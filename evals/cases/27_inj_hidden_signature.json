@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Pelham Valves Co.",
+  "quantity": 45,
+  "unit_price": 210.0,
+  "currency": "USD",
+  "delivery_date": "2027-04-09",
+  "tags": [
+    "injection"
+  ],
+  "note": ""
+}

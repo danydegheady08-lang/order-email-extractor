@@ -26,3 +26,6 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Eval run output
+evals/last_run*.json

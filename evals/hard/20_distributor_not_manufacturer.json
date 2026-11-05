@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Alpenhandel Vertriebs GmbH",
+  "quantity": 40,
+  "unit_price": 310.0,
+  "currency": "EUR",
+  "delivery_date": "2027-04-20",
+  "tags": [
+    "hard",
+    "supplier_trap"
+  ],
+  "note": "seller is the distributor, not the manufacturer"
+}

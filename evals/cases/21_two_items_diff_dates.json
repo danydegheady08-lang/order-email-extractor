@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Dunmore Plastics Ltd",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "two_items"
+  ],
+  "note": "two items, different dates -> qty, price, date all null"
+}

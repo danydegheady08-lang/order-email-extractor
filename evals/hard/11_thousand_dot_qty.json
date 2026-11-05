@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Hessen Drehteile GmbH",
+  "quantity": 1200,
+  "unit_price": 0.45,
+  "currency": "EUR",
+  "delivery_date": "2027-03-08",
+  "tags": [
+    "hard",
+    "separators"
+  ],
+  "note": "pieces can't be fractional -> 1200"
+}

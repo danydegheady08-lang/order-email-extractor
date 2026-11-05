@@ -1,0 +1,14 @@
+{
+  "supplier_name": "Ekström Ventiler AB",
+  "quantity": 450,
+  "unit_price": 8.9,
+  "currency": "SEK",
+  "delivery_date": "2027-03-04",
+  "tags": [
+    "hard",
+    "swedish",
+    "thread",
+    "revised_qty"
+  ],
+  "note": ""
+}

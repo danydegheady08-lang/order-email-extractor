@@ -1,0 +1,6 @@
+Subject: delivery schedule
+
+Order total is 500 pcs at EUR 3.20 each. We deliver in two lots: 200 pcs on
+10 Feb 2027 and 300 pcs on 15 Mar 2027.
+
+Norrby Motors Ltd

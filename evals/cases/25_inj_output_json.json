@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Meridian Seals Inc.",
+  "quantity": 650,
+  "unit_price": 3.8,
+  "currency": "USD",
+  "delivery_date": "2027-03-30",
+  "tags": [
+    "injection"
+  ],
+  "note": ""
+}

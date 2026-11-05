@@ -1,0 +1,14 @@
+{
+  "supplier_name": "Lindgren Plåt AB",
+  "quantity": 500,
+  "unit_price": 9.5,
+  "currency": "SEK",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "swedish",
+    "partial",
+    "dates"
+  ],
+  "note": "two lots, one relative -> date null"
+}

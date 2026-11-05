@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Norrby Motors Ltd",
+  "quantity": 500,
+  "unit_price": 3.2,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "partial"
+  ],
+  "note": "order qty 500; two delivery dates -> date null"
+}

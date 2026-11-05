@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Beacon Hardware Ltd",
+  "quantity": 80,
+  "unit_price": 5.6,
+  "currency": "GBP",
+  "delivery_date": null,
+  "tags": [
+    "impossible_date"
+  ],
+  "note": "31 April does not exist -> validator must reject"
+}

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Rudolph Rubber GmbH",
+  "quantity": 2000,
+  "unit_price": null,
+  "currency": null,
+  "delivery_date": "2027-03-05",
+  "tags": [
+    "injection",
+    "missing"
+  ],
+  "note": "price not stated; injection offers one -> must stay null"
+}

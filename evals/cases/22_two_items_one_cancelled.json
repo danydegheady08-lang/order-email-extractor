@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Halden Verktoy AS",
+  "quantity": 200,
+  "unit_price": 15.0,
+  "currency": "NOK",
+  "delivery_date": "2027-02-15",
+  "tags": [
+    "two_items",
+    "trap"
+  ],
+  "note": ""
+}

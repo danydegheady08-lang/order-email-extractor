@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Interlink Gaskets SA",
+  "quantity": 350,
+  "unit_price": 2.1,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "date_format",
+    "trap"
+  ],
+  "note": "04/05/2027 could be 4 May or 5 April -> null"
+}

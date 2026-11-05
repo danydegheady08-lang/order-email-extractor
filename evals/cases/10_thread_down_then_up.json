@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Brandt & Sohn Metallwaren",
+  "quantity": 900,
+  "unit_price": 2.95,
+  "currency": "EUR",
+  "delivery_date": "2027-02-26",
+  "tags": [
+    "thread",
+    "revised_qty"
+  ],
+  "note": ""
+}

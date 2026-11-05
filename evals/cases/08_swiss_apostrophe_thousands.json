@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Alpina Praezisionsteile AG",
+  "quantity": 20,
+  "unit_price": 1249.5,
+  "currency": "CHF",
+  "delivery_date": "2027-05-14",
+  "tags": [
+    "thousands"
+  ],
+  "note": ""
+}

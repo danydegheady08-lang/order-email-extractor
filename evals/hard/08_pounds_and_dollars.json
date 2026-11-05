@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Tidewater Components Ltd",
+  "quantity": 1800,
+  "unit_price": 4.2,
+  "currency": "GBP",
+  "delivery_date": "2027-03-18",
+  "tags": [
+    "hard",
+    "currency"
+  ],
+  "note": ""
+}

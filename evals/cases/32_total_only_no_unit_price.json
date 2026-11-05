@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Lakeshore Packaging Inc.",
+  "quantity": 300,
+  "unit_price": null,
+  "currency": "USD",
+  "delivery_date": "2027-03-22",
+  "tags": [
+    "total"
+  ],
+  "note": "only total given -> unit_price null"
+}

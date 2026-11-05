@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Ferro Tools SA",
+  "quantity": 150,
+  "unit_price": 88.0,
+  "currency": "CHF",
+  "delivery_date": "2027-03-01",
+  "tags": [
+    "clean",
+    "table"
+  ],
+  "note": ""
+}

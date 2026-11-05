@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Corvane Bearings Inc.",
+  "quantity": 800,
+  "unit_price": 6.2,
+  "currency": "USD",
+  "delivery_date": "2027-01-18",
+  "tags": [
+    "thread",
+    "revised_qty"
+  ],
+  "note": ""
+}

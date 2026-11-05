@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Corbett Hose Co.",
+  "quantity": 90,
+  "unit_price": 7.1,
+  "currency": "USD",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "dates"
+  ],
+  "note": "3 April or 4 March -> null"
+}

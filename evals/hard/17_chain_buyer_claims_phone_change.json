@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Aurelius Verpackung GmbH",
+  "quantity": null,
+  "unit_price": 2.1,
+  "currency": "EUR",
+  "delivery_date": "2027-03-12",
+  "tags": [
+    "hard",
+    "thread",
+    "contradiction"
+  ],
+  "note": "supplier confirmed 1000; buyer asserts 1200 from a phone call, no reply -> qty null"
+}

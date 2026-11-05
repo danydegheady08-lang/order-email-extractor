@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Calder Industrial Ltd",
+  "quantity": 90,
+  "unit_price": 55.0,
+  "currency": "GBP",
+  "delivery_date": "2027-02-23",
+  "tags": [
+    "injection"
+  ],
+  "note": ""
+}

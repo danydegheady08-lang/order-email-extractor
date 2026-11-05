@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Alder Hydraulics GmbH",
+  "quantity": 400,
+  "unit_price": 12.8,
+  "currency": "EUR",
+  "delivery_date": "2027-02-10",
+  "tags": [
+    "clean"
+  ],
+  "note": ""
+}

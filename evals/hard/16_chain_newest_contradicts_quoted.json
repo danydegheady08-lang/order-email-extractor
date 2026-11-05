@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Wessex Hydraulics Ltd",
+  "quantity": null,
+  "unit_price": 6.4,
+  "currency": "GBP",
+  "delivery_date": "2027-02-25",
+  "tags": [
+    "hard",
+    "thread",
+    "contradiction"
+  ],
+  "note": "confirmed 500 in older quote; newest says 700 'per my last mail' (which said 500) -> contradiction, qty null"
+}

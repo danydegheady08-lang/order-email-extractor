@@ -1,0 +1,12 @@
+Subject: AB 2026-8841 Auftragsbestaetigung / order ack
+
+Sehr geehrte Damen und Herren,
+
+wir bestaetigen Ihre Bestellung:
+Menge: 5000 Stueck Steuerleitung 3x1,5
+Preis pro Stueck: 1,35 EUR
+Liefertermin: 17.03.2027
+
+Mit freundlichen Gruessen
+Rhein Kabel GmbH
+Vertrieb Innendienst

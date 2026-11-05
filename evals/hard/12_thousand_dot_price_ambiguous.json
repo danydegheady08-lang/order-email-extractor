@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Voltax Transformatoren AG",
+  "quantity": 40,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-04-01",
+  "tags": [
+    "hard",
+    "separators"
+  ],
+  "note": "1.200 could be 1200 or 1.2; no context -> null"
+}

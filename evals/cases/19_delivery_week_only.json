@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Heilmann Antriebstechnik GmbH",
+  "quantity": 25,
+  "unit_price": 310.0,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "relative_date",
+    "range"
+  ],
+  "note": "calendar week only -> null"
+}

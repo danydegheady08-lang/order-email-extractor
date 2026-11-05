@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Ludlow Plastics Inc.",
+  "quantity": 600,
+  "unit_price": 3.3,
+  "currency": "USD",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "dates"
+  ],
+  "note": "'end of Q4' - no year, fiscal quarter unclear -> null"
+}

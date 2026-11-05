@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Kovacs Steelworks Kft.",
+  "quantity": 3000,
+  "unit_price": 4.35,
+  "currency": "EUR",
+  "delivery_date": "2027-03-12",
+  "tags": [
+    "thread",
+    "revised_price"
+  ],
+  "note": ""
+}

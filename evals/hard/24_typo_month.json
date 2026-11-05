@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Holm Brothers Ltd",
+  "quantity": 55,
+  "unit_price": 8.8,
+  "currency": "GBP",
+  "delivery_date": "2027-03-15",
+  "tags": [
+    "hard",
+    "typo"
+  ],
+  "note": "obvious typo for March"
+}

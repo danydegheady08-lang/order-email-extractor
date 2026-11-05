@@ -1,0 +1,7 @@
+Ämne: Orderbekräftelse
+
+Hej! Vi bekräftar order: 150 st kullager, pris 1 450 kr/st.
+Leverans 18 mars 2027.
+
+Hälsningar
+Nordkvist Kullager AB

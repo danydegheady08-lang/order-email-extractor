@@ -93,3 +93,44 @@ timeout), the CLI exit codes, and a check that the API key never shows up in the
   ignored an embedded instruction. That isn't a guarantee, and the validator can't catch a
   well-formed but injected value.
 - Each email costs one API call. Nothing is cached.
+
+## Evals
+
+`run_evals.py` runs 40 messy emails in `evals/cases/` (each `NN_name.txt` has an `NN_name.json`
+with the correct answers, `null` where the email doesn't say) through the real extractor and
+prints accuracy per field, every wrong or flagged result, and a "needs human review" list.
+
+```bash
+python run_evals.py                              # live, ~40 API calls
+python run_evals.py --check                      # validate the case files only
+python run_evals.py --only injection             # filter by name or tag
+python run_evals.py --rescore evals/last_run.json   # re-grade a saved run, no API calls
+```
+
+"Today" is pinned to 2026-11-05 so date checks don't drift. Expected answers follow the
+extractor's contract: a relative date, a range, a contradiction, a total without a unit price,
+a past or impossible date, or an email with two line items all expect `null`.
+Review rule: the validator flagged any field, or the model's notes mention doubt or an
+embedded instruction. The report also lists SILENT errors (wrong value, not on the review list);
+the script exits 1 if there are any.
+
+### Hard set (`evals/hard/`)
+
+30 adversarial emails written to break the extractor: dozens/gross/pallets-of-N, price per 100 or
+per thousand, `kr`, VAT included vs excluded, `1.200` as 1200 or 1.2, `03/04/2027`, "end of Q4",
+quantities in words, newest message contradicting a quoted older one, signature naming a different
+company, partial deliveries, OCR errors and typos, and 6 emails in German or Swedish. Answers are
+conservative: `null` wherever a careful person would hesitate.
+
+```bash
+python run_evals.py --dir evals/hard
+```
+
+Result on `claude-sonnet-5-5` (2026-11-05): **139/150 fields correct (92.7%)**, 22/30 emails fully
+correct. All 10 non-abstaining misses are cases where the model accepted a value instead of
+returning `null`; 7 emails were affected and none were caught by the review rule, because the
+model's notes described the choice it made without sounding unsure. Failures by pattern:
+quantity/price in dozens or gross taken as written (3 emails), price per 100 or per thousand
+silently converted to a per-unit price (2), a newest message contradicting a quoted
+older confirmation resolved in favour of the newest (1), and a partial confirmation
+("400 of 1000") taken as the order (1). The prompt and review rule have not been tuned for these yet.

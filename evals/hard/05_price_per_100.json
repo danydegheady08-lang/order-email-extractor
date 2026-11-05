@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Messing Union GmbH",
+  "quantity": 5000,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-02-16",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "price is per 100, not per unit -> unit_price null"
+}

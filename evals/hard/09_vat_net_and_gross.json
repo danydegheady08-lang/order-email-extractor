@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Kaltenbach Werkzeuge GmbH",
+  "quantity": 70,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-04-07",
+  "tags": [
+    "hard",
+    "vat"
+  ],
+  "note": "two prices (net and gross); which is 'the' unit price is ambiguous -> null"
+}

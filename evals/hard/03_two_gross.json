@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Bellweather Fasteners Inc.",
+  "quantity": null,
+  "unit_price": 0.05,
+  "currency": "USD",
+  "delivery_date": "2027-02-22",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "'gross' needs conversion (288); not stated as a count -> null quantity"
+}

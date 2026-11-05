@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Dunlin Pumps Ltd",
+  "quantity": null,
+  "unit_price": 1.1,
+  "currency": "USD",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "partial"
+  ],
+  "note": "confirmed qty is 400 of 1000 with the rest TBD -> quantity and date null"
+}

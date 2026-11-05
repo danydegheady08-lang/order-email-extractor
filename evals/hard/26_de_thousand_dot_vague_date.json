@@ -1,0 +1,14 @@
+{
+  "supplier_name": "Waagen Brinkmann GmbH",
+  "quantity": 3,
+  "unit_price": 1200.0,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "german",
+    "separators",
+    "dates"
+  ],
+  "note": "German context: 1.200 = 1200; 'Mitte April' is not a date"
+}

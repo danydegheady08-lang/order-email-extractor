@@ -1,0 +1,14 @@
+Subject: Order confirmation PO-60211
+
+Hello,
+
+we confirm your order:
+
+Supplier: Alder Hydraulics GmbH
+Item: Hydraulic seal kit HS-40
+Quantity: 400 pcs
+Unit price: EUR 12.80
+Delivery date: 10 February 2027
+
+Best regards
+Alder Hydraulics Order Desk

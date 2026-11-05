@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Redwood Sheet Metal",
+  "quantity": 1500,
+  "unit_price": 2.2,
+  "currency": "USD",
+  "delivery_date": "2027-01-12",
+  "tags": [
+    "sloppy"
+  ],
+  "note": ""
+}

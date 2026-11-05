@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Adler Kompressoren GmbH",
+  "quantity": 6,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-05-12",
+  "tags": [
+    "hard",
+    "german",
+    "vat"
+  ],
+  "note": "net and gross both stated -> null"
+}

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Castellan Textiles Ltd",
+  "quantity": null,
+  "unit_price": 7.25,
+  "currency": "EUR",
+  "delivery_date": "2027-03-10",
+  "tags": [
+    "missing",
+    "range"
+  ],
+  "note": "quantity is a range -> null"
+}

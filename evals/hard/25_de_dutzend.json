@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Schütte Arbeitsschutz GmbH",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-03-05",
+  "tags": [
+    "hard",
+    "german",
+    "units"
+  ],
+  "note": "dozens: unit count and per-unit price ambiguous -> null"
+}

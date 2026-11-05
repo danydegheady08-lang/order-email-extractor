@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Printwell Labels Inc.",
+  "quantity": 20000,
+  "unit_price": null,
+  "currency": "USD",
+  "delivery_date": "2027-02-26",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "'/M' = per thousand -> unit_price null"
+}

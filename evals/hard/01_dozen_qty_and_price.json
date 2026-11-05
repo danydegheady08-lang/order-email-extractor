@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Pacifica Safety Supplies Ltd",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-02-11",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "5 dozen at 24/dozen: quantity in units (5 vs 60) and per-unit price (24 vs 2) both ambiguous -> null"
+}

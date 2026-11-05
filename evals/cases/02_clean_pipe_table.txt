@@ -1,0 +1,10 @@
+Subject: Confirmation - your PO 5519
+
+| Vendor          | Ferro Tools SA        |
+| Article         | torque wrench TW-90   |
+| Qty             | 150                   |
+| Price / piece   | CHF 88.00             |
+| Delivery        | 2027-03-01            |
+
+Thanks,
+Ferro Tools SA, Sales Support

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Eastbrook Pipe Co.",
+  "quantity": 1200,
+  "unit_price": 2.75,
+  "currency": "USD",
+  "delivery_date": "2027-03-09",
+  "tags": [
+    "hard",
+    "words"
+  ],
+  "note": ""
+}

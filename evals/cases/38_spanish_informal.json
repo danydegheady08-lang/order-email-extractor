@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Suministros Ibericos S.L.",
+  "quantity": 250,
+  "unit_price": 3.4,
+  "currency": "EUR",
+  "delivery_date": "2027-04-15",
+  "tags": [
+    "multilingual"
+  ],
+  "note": ""
+}

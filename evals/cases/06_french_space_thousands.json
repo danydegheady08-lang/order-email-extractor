@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Atelier Morel SARL",
+  "quantity": 3,
+  "unit_price": 12500.0,
+  "currency": "EUR",
+  "delivery_date": "2027-09-09",
+  "tags": [
+    "decimal_comma",
+    "multilingual"
+  ],
+  "note": ""
+}

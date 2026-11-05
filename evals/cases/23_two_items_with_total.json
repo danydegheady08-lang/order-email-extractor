@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Brisa Components S.A.",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": "2027-04-06",
+  "tags": [
+    "two_items",
+    "total"
+  ],
+  "note": "two items + total"
+}

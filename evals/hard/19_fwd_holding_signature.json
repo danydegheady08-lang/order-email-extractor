@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Weber Dichtungen GmbH",
+  "quantity": 2500,
+  "unit_price": 0.38,
+  "currency": "EUR",
+  "delivery_date": "2027-03-31",
+  "tags": [
+    "hard",
+    "supplier_trap"
+  ],
+  "note": "signature = holding; body says the subsidiary delivers and invoices"
+}

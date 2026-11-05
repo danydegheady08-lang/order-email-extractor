@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Cranleigh Ladders Ltd",
+  "quantity": 12,
+  "unit_price": 89.0,
+  "currency": "GBP",
+  "delivery_date": "2027-03-03",
+  "tags": [
+    "hard",
+    "units"
+  ],
+  "note": "a dozen = 12, price is per ladder"
+}

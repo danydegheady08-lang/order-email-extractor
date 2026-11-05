@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Ostrava Lisovna s.r.o.",
+  "quantity": 100,
+  "unit_price": 9.4,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "past_date"
+  ],
+  "note": "date is before today (2026-11-05) -> validator must reject"
+}

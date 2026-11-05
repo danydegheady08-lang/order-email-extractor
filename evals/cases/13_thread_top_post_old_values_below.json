@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Sundial Electronics Co.",
+  "quantity": 240,
+  "unit_price": 17.5,
+  "currency": "USD",
+  "delivery_date": "2027-02-04",
+  "tags": [
+    "thread",
+    "revised_qty"
+  ],
+  "note": ""
+}

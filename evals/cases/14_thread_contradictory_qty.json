@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Marlow Fixings Ltd",
+  "quantity": null,
+  "unit_price": 0.18,
+  "currency": "GBP",
+  "delivery_date": "2027-02-19",
+  "tags": [
+    "thread",
+    "contradiction",
+    "trap"
+  ],
+  "note": "quantity contradictory (500 vs 5000), unresolved"
+}

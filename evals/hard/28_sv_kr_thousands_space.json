@@ -1,0 +1,14 @@
+{
+  "supplier_name": "Nordkvist Kullager AB",
+  "quantity": 150,
+  "unit_price": 1450.0,
+  "currency": "SEK",
+  "delivery_date": "2027-03-18",
+  "tags": [
+    "hard",
+    "swedish",
+    "currency",
+    "separators"
+  ],
+  "note": "Swedish AB company + kr -> SEK (extractor rule only accepts 'unambiguous' symbols, so null is a defensible miss)"
+}

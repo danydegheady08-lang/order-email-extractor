@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Quintal Hydraulik GmbH",
+  "quantity": 12,
+  "unit_price": 760.0,
+  "currency": "EUR",
+  "delivery_date": "2027-04-14",
+  "tags": [
+    "supplier_trap",
+    "thread"
+  ],
+  "note": ""
+}

@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Fjordline Trading",
+  "quantity": 800,
+  "unit_price": 245.0,
+  "currency": null,
+  "delivery_date": "2027-04-12",
+  "tags": [
+    "hard",
+    "currency"
+  ],
+  "note": "kr could be SEK, NOK or DKK, no country given -> currency null"
+}

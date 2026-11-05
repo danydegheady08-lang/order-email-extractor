@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Lorenz Haustechnik GmbH",
+  "quantity": 30,
+  "unit_price": 119.0,
+  "currency": "EUR",
+  "delivery_date": "2027-03-25",
+  "tags": [
+    "hard",
+    "vat"
+  ],
+  "note": "only one price stated (incl. VAT); stated value 119.00"
+}

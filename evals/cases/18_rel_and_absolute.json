@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Westmark Pumps Ltd",
+  "quantity": 14,
+  "unit_price": 2310.0,
+  "currency": "GBP",
+  "delivery_date": "2026-11-24",
+  "tags": [
+    "relative_date",
+    "trap"
+  ],
+  "note": ""
+}

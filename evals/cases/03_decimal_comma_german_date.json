@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Rhein Kabel GmbH",
+  "quantity": 5000,
+  "unit_price": 1.35,
+  "currency": "EUR",
+  "delivery_date": "2027-03-17",
+  "tags": [
+    "decimal_comma",
+    "date_format"
+  ],
+  "note": ""
+}

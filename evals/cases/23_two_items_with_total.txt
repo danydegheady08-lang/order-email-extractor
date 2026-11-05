@@ -1,0 +1,8 @@
+Subject: Pedido 118
+
+Pedido confirmado, entrega 6 abril 2027:
+  Conectores tipo A   500 uds   EUR 1,10
+  Conectores tipo B   300 uds   EUR 1,60
+  TOTAL                         EUR 1.030,00
+
+Brisa Components S.A.

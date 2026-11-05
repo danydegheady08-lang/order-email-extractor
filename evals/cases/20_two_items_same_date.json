@@ -1,0 +1,11 @@
+{
+  "supplier_name": "Greenfield Fasteners Ltd",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "GBP",
+  "delivery_date": "2027-02-01",
+  "tags": [
+    "two_items"
+  ],
+  "note": "two line items -> qty & price ambiguous -> null"
+}

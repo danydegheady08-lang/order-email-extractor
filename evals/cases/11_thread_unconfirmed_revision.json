@@ -1,0 +1,13 @@
+{
+  "supplier_name": "Nordhavn Packaging A/S",
+  "quantity": 1500,
+  "unit_price": 0.64,
+  "currency": "EUR",
+  "delivery_date": "2027-01-29",
+  "tags": [
+    "thread",
+    "revised_qty",
+    "trap"
+  ],
+  "note": ""
+}

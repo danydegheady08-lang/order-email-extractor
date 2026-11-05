@@ -1,0 +1,12 @@
+{
+  "supplier_name": "Rhein Kunststoff GmbH",
+  "quantity": null,
+  "unit_price": null,
+  "currency": "EUR",
+  "delivery_date": null,
+  "tags": [
+    "hard",
+    "ocr"
+  ],
+  "note": "letters in place of digits (1O0, 2.5O, 1S) -> a careful human would not trust any of them"
+}
